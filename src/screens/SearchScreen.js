@@ -2,9 +2,9 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import SearchBar from '../components/SearchBar';
 import useBusinesses from '../hooks/useBusinesses';
-import ResultList from '../components/BusinessesList';
+import BusinessesList from '../components/BusinessesList';
 
-const SearchScreen = () => {
+const SearchScreen = ({navigation}) => {
   const [term, setTerm] = useState('');
   const [searchApi, businesses, errorMessage] = useBusinesses();
 
@@ -22,9 +22,9 @@ const SearchScreen = () => {
         onTermSubmit={() => searchApi(term)}/>
       {errorMessage ? <Text>{errorMessage}</Text> : null}
       <ScrollView>
-        <ResultList businesses={filterBusinessesByPrice('$')} title = 'Cost Effective'/>
-        <ResultList businesses={filterBusinessesByPrice('$$')} title = 'Bit Pricier' />
-        <ResultList businesses={filterBusinessesByPrice('$$$')} title = 'Big Spender'/>
+        <BusinessesList businesses={filterBusinessesByPrice('$')} title = 'Cost Effective' navigation={navigation}/>
+        <BusinessesList businesses={filterBusinessesByPrice('$$')} title = 'Bit Pricier' navigation={navigation}/>
+        <BusinessesList businesses={filterBusinessesByPrice('$$$')} title = 'Big Spender'navigation={navigation}/>
       </ScrollView>
     </>
   )
